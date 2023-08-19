@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +17,8 @@ public class Reservation {
     private String id;
     private Integer userId;
     private Integer lodgeId;
-    private Date reservationStart;
-    private Date reservationEnd;
+    private LocalDate reservationStart;
+    private LocalDate reservationEnd;
     private Integer guestNumber;
     private Double totalPrice;
     private Boolean canceled;

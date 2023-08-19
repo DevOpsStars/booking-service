@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,8 +14,8 @@ import java.util.Date;
 public class NewRequestDTO {
     private Integer userId;
     private Integer lodgeId;
-    private Date reservationStart;
-    private Date reservationEnd;
+    private LocalDate reservationStart;
+    private LocalDate reservationEnd;
     private Integer guestNumber;
     private Double totalPrice;
 }
