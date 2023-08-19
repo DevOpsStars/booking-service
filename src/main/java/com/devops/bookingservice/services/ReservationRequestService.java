@@ -25,9 +25,12 @@ public class ReservationRequestService {
 
     public ReservationRequest createNew(NewRequestDTO request) {
         // check if already reserved
-        if (this.requestRepository
-                .findAcceptedByPeriod(request.getReservationStart(), request.getReservationEnd())
-                .size() > 0)
+        List<ReservationRequest> acceptedInSamePeriod = this.requestRepository
+                .findAcceptedByPeriod(
+                        request.getReservationStart(), request.getReservationEnd()
+                );
+        System.out.println("is it empty? from service method: " + acceptedInSamePeriod.isEmpty());
+        if (!acceptedInSamePeriod.isEmpty())
             return null;
         // check in lodging service
 //        if (!isAvailable(request.getLodgeId(), request.getReservationStart(), request.getReservationEnd()))
@@ -42,7 +45,9 @@ public class ReservationRequestService {
                 .totalPrice(request.getTotalPrice())
                 .userId(request.getUserId())
                 .build();
-        return requestRepository.save(rr);
+        rr = requestRepository.save(rr);
+        System.out.println(rr);
+        return rr;
     }
 
     public List<ReservationRequest> getAll() {
