@@ -29,7 +29,6 @@ public class ReservationRequestService {
                 .findAcceptedByPeriod(
                         request.getReservationStart(), request.getReservationEnd()
                 );
-        System.out.println("is it empty? from service method: " + acceptedInSamePeriod.isEmpty());
         if (!acceptedInSamePeriod.isEmpty())
             return null;
         // check in lodging service
