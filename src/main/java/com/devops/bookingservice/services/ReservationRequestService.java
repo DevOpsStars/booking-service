@@ -46,4 +46,12 @@ public class ReservationRequestService {
         return requestRepository.findAll();
     }
 
+    public int deletePending(String id) {
+        ReservationRequest request = requestRepository.findById(id).orElse(null);
+        if (request == null) return -1;
+        if (!request.getStatus().equals(RequestStatus.PENDING)) return -2;
+        requestRepository.deleteById(id);
+        return 1;
+    }
+
 }
