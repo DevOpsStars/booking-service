@@ -13,11 +13,14 @@ import java.util.List;
 @Service
 public class ReservationRequestService {
 
-    private ReservationRequestRepository requestRepository;
+    private final ReservationRequestRepository requestRepository;
+
+    private final ReservationService reservationService;
 
     @Autowired
     public ReservationRequestService(ReservationRequestRepository requestRepository, ReservationService reservationService){
         this.requestRepository = requestRepository;
+        this.reservationService = reservationService;
     }
 
     public ReservationRequest createNew(NewRequestDTO request) {
@@ -52,6 +55,14 @@ public class ReservationRequestService {
         if (!request.getStatus().equals(RequestStatus.PENDING)) return -2;
         requestRepository.deleteById(id);
         return 1;
+    }
+
+
+    public Reservation acceptRequest(ReservationRequest request) {
+        if (!request.getStatus().equals(RequestStatus.PENDING)) return null;
+        request.setStatus(RequestStatus.ACCEPTED);
+        requestRepository.save(request);
+        return reservationService.createReservationFromRequest(request);
     }
 
 }
