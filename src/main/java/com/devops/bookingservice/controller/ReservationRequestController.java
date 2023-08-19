@@ -22,7 +22,6 @@ public class ReservationRequestController {
         this.requestService = requestService;
     }
 
-
     @PostMapping(value = "/send-request")
     public ResponseEntity<ReservationRequest> create(@RequestBody NewRequestDTO dto){
         ReservationRequest result = this.requestService.createNew(dto);
@@ -30,12 +29,20 @@ public class ReservationRequestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    
-
     @GetMapping(value = "")
     public ResponseEntity<List<ReservationRequest>> getAll() {
         List<ReservationRequest> result = requestService.getAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> deletePending(@PathVariable String id) {
+        int result = requestService.deletePending(id);
+        if (result == -1)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (result == -2)
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }
