@@ -26,7 +26,7 @@ import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class ReservationRequestServiceUnitTest {
+class ReservationRequestServiceUnitTest {
 
     @Mock
     private ReservationRequestRepository requestRepository;
@@ -39,7 +39,7 @@ public class ReservationRequestServiceUnitTest {
 
 
     @Test
-    public void givenAcceptedReservationInSamePeriod_whenCreatingNewRequest_thenReturnsNull() {
+    void givenAcceptedReservationInSamePeriod_whenCreatingNewRequest_thenReturnsNull() {
         // given
         NewRequestDTO newRequest = new NewRequestDTO();
         newRequest.setReservationStart(LocalDate.now());
