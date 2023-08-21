@@ -31,9 +31,8 @@ public class ReservationRequestService {
                 );
         if (!acceptedInSamePeriod.isEmpty())
             return null;
-        // check in lodging service
-//        if (!isAvailable(request.getLodgeId(), request.getReservationStart(), request.getReservationEnd()))
-//            return null;
+        // TODO: check availability in lodging service
+
         ReservationRequest rr = ReservationRequest.builder()
                 .guestNumber(request.getGuestNumber())
                 .reservationEnd(request.getReservationEnd())
@@ -45,7 +44,6 @@ public class ReservationRequestService {
                 .userId(request.getUserId())
                 .build();
         rr = requestRepository.save(rr);
-        System.out.println(rr);
         return rr;
     }
 
