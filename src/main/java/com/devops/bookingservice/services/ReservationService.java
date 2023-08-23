@@ -36,7 +36,9 @@ public class ReservationService {
         Reservation reservation = reservationRepository.findById(id).orElse(null);
         if (reservation == null)
             return null;
-        if (reservation.getReservationStart().isAfter(LocalDate.now().minusDays(1)))
+        if (!reservation.getReservationStart().isAfter(LocalDate.now().plusDays(1)))
+            return null;
+        if (reservation.getCanceled())
             return null;
         reservation.setCanceled(true);
         return reservationRepository.save(reservation);
