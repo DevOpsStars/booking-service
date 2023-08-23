@@ -6,6 +6,9 @@ import com.devops.bookingservice.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Service
 public class ReservationService {
 
@@ -27,5 +30,23 @@ public class ReservationService {
                 .totalPrice(request.getTotalPrice())
                 .build();
         return reservationRepository.save(reservation);
+    }
+
+    public Reservation cancel(String id) {
+        Reservation reservation = reservationRepository.findById(id).orElse(null);
+        if (reservation == null)
+            return null;
+        if (reservation.getReservationStart().isAfter(LocalDate.now().minusDays(1)))
+            return null;
+        reservation.setCanceled(true);
+        return reservationRepository.save(reservation);
+    }
+
+    public List<Reservation> getAll() {
+        return reservationRepository.findAll();
+    }
+
+    public Integer getCancelCountForUser(Integer userId) {
+        return reservationRepository.countIsCanceledByUserId(userId);
     }
 }
