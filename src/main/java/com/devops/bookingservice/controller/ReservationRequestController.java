@@ -1,6 +1,7 @@
 package com.devops.bookingservice.controller;
 
 import com.devops.bookingservice.dto.NewRequestDTO;
+import com.devops.bookingservice.model.Reservation;
 import com.devops.bookingservice.model.ReservationRequest;
 import com.devops.bookingservice.services.ReservationRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,22 @@ public class ReservationRequestController {
         if (result == -2)
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         return new ResponseEntity<>(id, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/accept")
+    public ResponseEntity<Reservation> acceptPending(@PathVariable String id) {
+        Reservation result = requestService.acceptRequest(id);
+        if (result == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/decline")
+    public ResponseEntity<ReservationRequest> declinePending(@PathVariable String id) {
+        ReservationRequest result = requestService.declineRequest(id);
+        if (result == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }
