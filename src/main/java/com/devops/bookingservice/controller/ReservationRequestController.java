@@ -62,4 +62,9 @@ public class ReservationRequestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/{id}/pending")
+    public ResponseEntity<List<ReservationRequest>> getPendingForLodge(@PathVariable Integer id) {
+        List<ReservationRequest> result = requestService.getAllByLodgeIdPending(id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

@@ -1,7 +1,6 @@
 package com.devops.bookingservice.services;
 
 import com.devops.bookingservice.dto.NewRequestDTO;
-import com.devops.bookingservice.dto.ReservationRequestCancelCountDTO;
 import com.devops.bookingservice.model.RequestStatus;
 import com.devops.bookingservice.model.Reservation;
 import com.devops.bookingservice.model.ReservationRequest;
@@ -77,7 +76,7 @@ public class ReservationRequestService {
         return requestRepository.save(request);
     }
 
-    
-
-
+    public List<ReservationRequest> getAllByLodgeIdPending(Integer id) {
+        return requestRepository.findAllByLodgeIdPending(id);
+    }
 }
