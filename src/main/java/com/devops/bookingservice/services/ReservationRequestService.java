@@ -1,6 +1,7 @@
 package com.devops.bookingservice.services;
 
 import com.devops.bookingservice.dto.NewRequestDTO;
+import com.devops.bookingservice.dto.ReservationRequestCancelCountDTO;
 import com.devops.bookingservice.model.RequestStatus;
 import com.devops.bookingservice.model.Reservation;
 import com.devops.bookingservice.model.ReservationRequest;
@@ -59,12 +60,24 @@ public class ReservationRequestService {
         return 1;
     }
 
-
-    public Reservation acceptRequest(ReservationRequest request) {
+    public Reservation acceptRequest(String id) {
+        ReservationRequest request = requestRepository.findById(id).orElse(null);
+        if (request == null) return null;
         if (!request.getStatus().equals(RequestStatus.PENDING)) return null;
         request.setStatus(RequestStatus.ACCEPTED);
         requestRepository.save(request);
         return reservationService.createReservationFromRequest(request);
     }
+    public ReservationRequest declineRequest(String id) {
+        ReservationRequest request = requestRepository.findById(id).orElse(null);
+        if (request == null) return null;
+        if (!request.getStatus().equals(RequestStatus.PENDING)) return null;
+        request.setStatus(RequestStatus.DECLINED);
+        requestRepository.save(request);
+        return requestRepository.save(request);
+    }
+
+    
+
 
 }
