@@ -31,7 +31,8 @@ public class ReservationRequestService {
                 );
         if (!acceptedInSamePeriod.isEmpty())
             return null;
-        // TODO: check availability in lodging service
+
+        // ----- check availability in lodging service...
 
         ReservationRequest rr = ReservationRequest.builder()
                 .guestNumber(request.getGuestNumber())
