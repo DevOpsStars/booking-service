@@ -44,10 +44,11 @@ class ReservationRequestServiceUnitTest {
         NewRequestDTO newRequest = new NewRequestDTO();
         newRequest.setReservationStart(LocalDate.now());
         newRequest.setReservationEnd(LocalDate.now().plusDays(3));
+        newRequest.setLodgeId(1);
 
         List<ReservationRequest> acceptedRequests = new ArrayList<>();
         acceptedRequests.add(new ReservationRequest());
-        given(requestRepository.findAcceptedByPeriod(newRequest.getReservationStart(), newRequest.getReservationEnd()))
+        given(requestRepository.findAcceptedByPeriod(newRequest.getReservationStart(), newRequest.getReservationEnd(), newRequest.getLodgeId()))
                 .willReturn(acceptedRequests);
 
         // when

@@ -27,7 +27,7 @@ public class ReservationRequestService {
         // check if already reserved
         List<ReservationRequest> acceptedInSamePeriod = this.requestRepository
                 .findAcceptedByPeriod(
-                        request.getReservationStart(), request.getReservationEnd()
+                        request.getReservationStart(), request.getReservationEnd(), request.getLodgeId()
                 );
         if (!acceptedInSamePeriod.isEmpty())
             return null;
@@ -65,6 +65,12 @@ public class ReservationRequestService {
         if (!request.getStatus().equals(RequestStatus.PENDING)) return null;
         request.setStatus(RequestStatus.ACCEPTED);
         requestRepository.save(request);
+        List<ReservationRequest> declinedRequests = requestRepository.findPendingByPeriod(request.getReservationStart(), request.getReservationEnd(), request.getLodgeId());
+        System.out.println(declinedRequests.size());
+        for (ReservationRequest rr : declinedRequests) {
+            rr.setStatus(RequestStatus.DECLINED);
+            requestRepository.save(rr);
+        }
         return reservationService.createReservationFromRequest(request);
     }
     public ReservationRequest declineRequest(String id) {

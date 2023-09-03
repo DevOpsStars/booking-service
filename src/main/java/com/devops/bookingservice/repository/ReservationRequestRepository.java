@@ -10,8 +10,11 @@ import java.util.List;
 public interface ReservationRequestRepository extends MongoRepository<ReservationRequest, String> {
 
     // TODO: add lodgeId to make it specific to lodge reservation requests
-    @Query("{'reservationStart' : { $gte: ?0, $lte: ?1 }, 'reservationEnd' : {$gte: ?0, $lte: ?1}, 'status': 'ACCEPTED' }")
-    List<ReservationRequest> findAcceptedByPeriod(LocalDate start, LocalDate end);
+    @Query("{ 'reservationStart' : { $lt: ?1 }, 'reservationEnd' : { $gt: ?0 }, 'status': 'ACCEPTED', 'lodgeId' : ?2 }")
+    List<ReservationRequest> findAcceptedByPeriod(LocalDate start, LocalDate end, Integer lodgeId);
+
+    @Query("{ 'reservationStart' : { $lt: ?1 }, 'reservationEnd' : { $gt: ?0 }, 'status': 'PENDING', 'lodgeId' : ?2 }")
+    List<ReservationRequest> findPendingByPeriod(LocalDate start, LocalDate end, Integer lodgeId);
 
     @Query("{'lodgeId' : ?0, 'status': 'PENDING' }")
     List<ReservationRequest> findAllByLodgeIdPending(Integer lodgeId);

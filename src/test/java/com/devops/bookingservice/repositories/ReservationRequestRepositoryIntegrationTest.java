@@ -57,7 +57,7 @@ class ReservationRequestRepositoryIntegrationTest {
         repository.save(request);
 
         // when
-        List<ReservationRequest> result = repository.findAcceptedByPeriod(start, end);
+        List<ReservationRequest> result = repository.findAcceptedByPeriod(start, end, 1);
 
         // then
         assertThat(result).isNotEmpty();
@@ -81,7 +81,7 @@ class ReservationRequestRepositoryIntegrationTest {
         repository.save(request);
 
         // when
-        List<ReservationRequest> result = repository.findAcceptedByPeriod(start, end);
+        List<ReservationRequest> result = repository.findAcceptedByPeriod(start, end, 1);
 
         // then
         assertThat(result).isEmpty();
