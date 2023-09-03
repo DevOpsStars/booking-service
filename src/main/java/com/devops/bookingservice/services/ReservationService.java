@@ -51,4 +51,12 @@ public class ReservationService {
     public Integer getCancelCountForUser(Integer userId) {
         return reservationRepository.countIsCanceledByUserId(userId);
     }
+
+    public List<Reservation> getAllByUserIdActive(Integer userId) {
+        return reservationRepository.findAllByUserIdAndReservationEndAfter(userId, LocalDate.now());
+    }
+
+    public List<Reservation> getAllByUserId(Integer userId) {
+        return reservationRepository.findAllByUserId(userId);
+    }
 }
