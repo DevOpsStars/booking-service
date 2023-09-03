@@ -45,4 +45,19 @@ public class ReservationController {
         Integer count = reservationService.getCancelCountForUser(id);
         return new ResponseEntity<>(count, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/{id}/active")
+    public  ResponseEntity<List<Reservation>> getAllActiveByUser(@PathVariable Integer id) {
+        List<Reservation> list = reservationService.getAllByUserIdActive(id);
+        if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{id}/all-reservations")
+    public  ResponseEntity<List<Reservation>> getAllByUser(@PathVariable Integer id) {
+        List<Reservation> list = reservationService.getAllByUserId(id);
+        if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 }
