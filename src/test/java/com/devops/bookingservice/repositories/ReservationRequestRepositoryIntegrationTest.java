@@ -53,6 +53,7 @@ class ReservationRequestRepositoryIntegrationTest {
         ReservationRequest request = new ReservationRequest();
         request.setReservationStart(start);
         request.setReservationEnd(end);
+        request.setLodgeId(1);
         request.setStatus(RequestStatus.ACCEPTED);
         repository.save(request);
 
