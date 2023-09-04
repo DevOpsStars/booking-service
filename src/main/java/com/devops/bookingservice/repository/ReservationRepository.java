@@ -15,4 +15,8 @@ public interface ReservationRepository extends MongoRepository<Reservation, Stri
     List<Reservation> findAllByUserIdAndReservationEndAfter(Integer userId, LocalDate date);
 
     List<Reservation> findAllByUserId(Integer userId);
+
+    List<Reservation> findAllByLodgeId(Integer userId);
+
+    List<Reservation> findAllByLodgeIdIn(List<Integer> userId);
 }

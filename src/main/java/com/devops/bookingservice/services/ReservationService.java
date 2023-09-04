@@ -59,4 +59,12 @@ public class ReservationService {
     public List<Reservation> getAllByUserId(Integer userId) {
         return reservationRepository.findAllByUserId(userId);
     }
+
+    public List<Reservation> getAllByLodgeIdActive(Integer lodgeId) {
+        return reservationRepository.findAllByLodgeId(lodgeId);
+    }
+
+    public List<Reservation> getAllByLodgeIdsActive(List<Integer> lodgeIds) {
+        return reservationRepository.findAllByLodgeIdIn(lodgeIds);
+    }
 }

@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -58,6 +55,20 @@ public class ReservationController {
     @GetMapping(value = "/{id}/all-reservations")
     public  ResponseEntity<List<Reservation>> getAllByUser(@PathVariable Integer id) {
         List<Reservation> list = reservationService.getAllByUserId(id);
+        if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/lodge/{id}/active")
+    public ResponseEntity<List<Reservation>> getAllActiveByLodge(@PathVariable Integer id) {
+        List<Reservation> list = reservationService.getAllByLodgeIdActive(id);
+        if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/lodges/active")
+    public ResponseEntity<List<Reservation>> getAllActiveByLodges(@RequestParam List<Integer> ids) {
+        List<Reservation> list = reservationService.getAllByLodgeIdsActive(ids);
         if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
