@@ -33,6 +33,8 @@ public class ReservationRequestService {
             return null;
         // TODO: check availability in lodging service
 
+        // TODO: change to look at uncanceled reservations
+
         ReservationRequest rr = ReservationRequest.builder()
                 .guestNumber(request.getGuestNumber())
                 .reservationEnd(request.getReservationEnd())
