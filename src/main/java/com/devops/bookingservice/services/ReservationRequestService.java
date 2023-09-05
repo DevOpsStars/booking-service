@@ -25,15 +25,13 @@ public class ReservationRequestService {
 
     public ReservationRequest createNew(NewRequestDTO request) {
         // check if already reserved
-        List<ReservationRequest> acceptedInSamePeriod = this.requestRepository
-                .findAcceptedByPeriod(
+        // TODO: check availability in lodging service
+        Integer countReservationsInSamePeriod = reservationService
+                .getCountReservationsByPeriod(
                         request.getReservationStart(), request.getReservationEnd(), request.getLodgeId()
                 );
-        if (!acceptedInSamePeriod.isEmpty())
+        if (countReservationsInSamePeriod > 0)
             return null;
-        // TODO: check availability in lodging service
-
-        // TODO: change to look at uncanceled reservations
 
         ReservationRequest rr = ReservationRequest.builder()
                 .guestNumber(request.getGuestNumber())
