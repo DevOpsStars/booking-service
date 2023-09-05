@@ -2,6 +2,7 @@ package com.devops.bookingservice.services;
 
 import com.devops.bookingservice.dto.NewRequestDTO;
 import com.devops.bookingservice.model.RequestStatus;
+import com.devops.bookingservice.model.Reservation;
 import com.devops.bookingservice.model.ReservationRequest;
 import com.devops.bookingservice.repository.ReservationRequestRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,17 +40,15 @@ class ReservationRequestServiceUnitTest {
 
 
     @Test
-    void givenAcceptedReservationInSamePeriod_whenCreatingNewRequest_thenReturnsNull() {
+    void givenReservationsInSamePeriod_whenCreatingNewRequest_thenReturnsNull() {
         // given
         NewRequestDTO newRequest = new NewRequestDTO();
         newRequest.setReservationStart(LocalDate.now());
         newRequest.setReservationEnd(LocalDate.now().plusDays(3));
         newRequest.setLodgeId(1);
 
-        List<ReservationRequest> acceptedRequests = new ArrayList<>();
-        acceptedRequests.add(new ReservationRequest());
-        given(requestRepository.findAcceptedByPeriod(newRequest.getReservationStart(), newRequest.getReservationEnd(), newRequest.getLodgeId()))
-                .willReturn(acceptedRequests);
+        given(reservationService.getCountReservationsByPeriod(newRequest.getReservationStart(), newRequest.getReservationEnd(), newRequest.getLodgeId()))
+                .willReturn(1);
 
         // when
         ReservationRequest result = requestService.createNew(newRequest);
