@@ -31,6 +31,16 @@ public class ReservationRequestController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @PostMapping(value = "/send-request/automatic-accept")
+    public ResponseEntity<Reservation> createAutomaticAccept(@RequestBody NewRequestDTO dto){
+        ReservationRequest result = this.requestService.createNew(dto);
+        if (result == null) return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        Reservation reservation = requestService.acceptRequest(result.getId());
+        if (reservation == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
+    }
+
     @GetMapping(value = "")
     public ResponseEntity<List<ReservationRequest>> getAll() {
         List<ReservationRequest> result = requestService.getAll();
