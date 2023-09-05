@@ -25,5 +25,5 @@ public interface ReservationRepository extends MongoRepository<Reservation, Stri
     Integer countInPeriodByLodge(LocalDate start, LocalDate end, Integer lodgeId);
 
     @Query("{ 'reservationStart' : { $lt: ?1 }, 'reservationEnd' : { $gt: ?0 }, 'lodgeId' : ?2, 'canceled': 'false' }")
-    List<ReservationRequest> findAcceptedByPeriod(LocalDate start, LocalDate end, Integer lodgeId);
+    List<Reservation> findInPeriodByLodge(LocalDate start, LocalDate end, Integer lodgeId);
 }

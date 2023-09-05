@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -69,6 +70,19 @@ public class ReservationController {
     @GetMapping(value = "/lodges/active")
     public ResponseEntity<List<Reservation>> getAllActiveByLodges(@RequestParam List<Integer> ids) {
         List<Reservation> list = reservationService.getAllByLodgeIdsActive(ids);
+        if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/lodge/{id}/period/count")
+    public ResponseEntity<Integer> getCountReservationsByPeriod(@PathVariable Integer id, @RequestParam LocalDate start, @RequestParam LocalDate end) {
+        Integer count = reservationService.getCountReservationsByPeriod(start, end, id);
+        return new ResponseEntity<>(count, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/lodge/{id}/period")
+    public ResponseEntity<List<Reservation>> getReservationsByPeriod(@PathVariable Integer id, @RequestParam LocalDate start, @RequestParam LocalDate end) {
+        List<Reservation> list = reservationService.getReservationsByPeriod(start, end, id);
         if (list.isEmpty()) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }

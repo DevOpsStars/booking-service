@@ -67,4 +67,12 @@ public class ReservationService {
     public List<Reservation> getAllByLodgeIdsActive(List<Integer> lodgeIds) {
         return reservationRepository.findAllByLodgeIdInAndReservationEndAfterAndCanceledIsFalse(lodgeIds, LocalDate.now());
     }
+
+    public List<Reservation> getReservationsByPeriod(LocalDate start, LocalDate end, Integer lodgeId) {
+        return reservationRepository.findInPeriodByLodge(start, end, lodgeId);
+    }
+
+    public Integer getCountReservationsByPeriod(LocalDate start, LocalDate end, Integer lodgeId) {
+        return reservationRepository.countInPeriodByLodge(start, end, lodgeId);
+    }
 }

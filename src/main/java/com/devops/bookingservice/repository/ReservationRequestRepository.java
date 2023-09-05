@@ -16,7 +16,7 @@ public interface ReservationRequestRepository extends MongoRepository<Reservatio
     @Query("{ 'reservationStart' : { $lt: ?1 }, 'reservationEnd' : { $gt: ?0 }, 'status': 'PENDING', 'lodgeId' : ?2 }")
     List<ReservationRequest> findPendingByPeriod(LocalDate start, LocalDate end, Integer lodgeId);
 
-    @Query("{'lodgeId' : ?0, 'status': 'PENDING' }")
+    @Query("{ 'lodgeId' : ?0, 'status': 'PENDING' }")
     List<ReservationRequest> findAllByLodgeIdPending(Integer lodgeId);
 
 }
