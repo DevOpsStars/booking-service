@@ -53,18 +53,18 @@ public class ReservationService {
     }
 
     public List<Reservation> getAllByUserIdActive(Integer userId) {
-        return reservationRepository.findAllByUserIdAndReservationEndAfter(userId, LocalDate.now());
+        return reservationRepository.findAllByUserIdAndReservationEndAfterAndCanceledIsFalse(userId, LocalDate.now());
     }
 
     public List<Reservation> getAllByUserId(Integer userId) {
-        return reservationRepository.findAllByUserId(userId);
+        return reservationRepository.findAllByUserIdAndCanceledIsFalse(userId);
     }
 
     public List<Reservation> getAllByLodgeIdActive(Integer lodgeId) {
-        return reservationRepository.findAllByLodgeId(lodgeId);
+        return reservationRepository.findAllByLodgeIdAndReservationEndAfterAndCanceledIsFalse(lodgeId, LocalDate.now());
     }
 
     public List<Reservation> getAllByLodgeIdsActive(List<Integer> lodgeIds) {
-        return reservationRepository.findAllByLodgeIdIn(lodgeIds);
+        return reservationRepository.findAllByLodgeIdInAndReservationEndAfterAndCanceledIsFalse(lodgeIds, LocalDate.now());
     }
 }
