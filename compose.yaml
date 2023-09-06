@@ -6,7 +6,10 @@ services:
       context: .
     container_name: booking_service_app
     environment:
-      - SPRING_DATA_MONGODB_URI=mongodb://booking_service_mongodb:27017/test
+      - MONGO_HOST=booking_service_mongodb
+      - MONGO_DB=test
+      - MONGO_INITDB_ROOT_USERNAME=pera1
+      - MONGO_INITDB_ROOT_PASSWORD=pera1
     ports:
       - "4000:8080"
     depends_on:
