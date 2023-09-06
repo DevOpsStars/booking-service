@@ -1,34 +1,8 @@
 spring:
-  application:
-    name: spring-mongo-service
   data:
     mongodb:
-      host: '${MONGO_HOST}'
-      database: '${MONGO_DB}'
+      host: host.docker.internal
+      database: test
       port: 27017
-      username: '${MONGO_INITDB_ROOT_USERNAME}'
-      password: '${MONGO_INITDB_ROOT_PASSWORD}'
-  cloud:
-    kubernetes:
-      discovery:
-        register: true
-      secrets:
-        name: mongodb-secret
-
-      config:
-        enabled: true
-        sources:
-          - namespace: booking
-            name: mongodb-configmap
-      reload:
-        enabled: true
-        mode: polling
-        period: 1000
-management:
-  endpoint:
-    restart:
-      enabled: true
-    health:
-      enabled: true
-    info:
-      enabled: true
+      username: test
+      password: test
