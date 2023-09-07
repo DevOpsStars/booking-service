@@ -3,12 +3,11 @@ spring:
     name: spring-mongo-service
   data:
     mongodb:
-      host: ${MONGO_HOST}
-      database: ${MONGO_DB}
+      host: '${MONGO_HOST}'
+      database: '${MONGO_DB}'
       port: 27017
-      username: ${MONGO_INITDB_ROOT_USERNAME}
-      password: ${MONGO_INITDB_ROOT_PASSWORD}
-      authentication-database: admin
+      username: '${MONGO_INITDB_ROOT_USERNAME}'
+      password: '${MONGO_INITDB_ROOT_PASSWORD}'
   cloud:
     kubernetes:
       discovery:
